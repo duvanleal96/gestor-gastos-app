@@ -1,7 +1,7 @@
 import React from 'react';
 import { SafeAreaView, StatusBar } from 'react-native';
-import LaunchScreen from './src/screens/LaunchScreen';
 import { styles } from './src/theme/LaunchTheme';
+import LoginUserScreen from './src/screens/LoginUserScreen';
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
     // </View>
     <SafeAreaView style={styles.container}>
     <StatusBar backgroundColor="black" />
-    <LaunchScreen />
+    <LoginUserScreen />
   </SafeAreaView>
   );
 };
