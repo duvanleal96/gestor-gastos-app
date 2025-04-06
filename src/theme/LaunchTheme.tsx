@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     width: 144,
   },
   text: {
-    position: 'absolute',
+    position: 'relative',
     bottom: '8.75%',
     color: 'black',
     fontSize: 24,
