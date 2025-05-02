@@ -30,6 +30,6 @@ const style = StyleSheet.create({
     bottom: -50,
   },
   prupleText: {
-    color: 'purple',
+    color: 'black',
   },
 });

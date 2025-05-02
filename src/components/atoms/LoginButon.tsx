@@ -5,7 +5,7 @@ import React from 'react';
    <SafeAreaView>
      <View>
        <Button
-         title="Continue"
+         title="No Continue"
          onPress={() => Alert.alert('Simple Button pressed')}
        />
      </View>
