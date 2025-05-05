@@ -1,15 +1,18 @@
 import React from 'react';
- import { Button, View, SafeAreaView, Alert } from 'react-native';
- 
- const LoginButon = () => (
-   <SafeAreaView>
-     <View>
-       <Button
-         title="No Continue"
-         onPress={() => Alert.alert('Simple Button pressed')}
-       />
-     </View>
-   </SafeAreaView>
- );
- 
- export default LoginButon;
+import { Text, TouchableOpacity } from 'react-native';
+import { stylesLoginUser } from '../../theme/LoginUserTheme';
+
+interface Props {
+  text: string;
+  action?: (textNumber: string) => void;
+}
+
+const LoginButon = ({ text, action }: Props) => (
+  <TouchableOpacity
+    style={stylesLoginUser.btn}
+    onPress={() => (action ? action(text) : console.log({ text }))}>
+    <Text style={stylesLoginUser.btnText}>{text}</Text>
+  </TouchableOpacity>
+);
+
+export default LoginButon;

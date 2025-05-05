@@ -1,17 +1,16 @@
 import React from 'react';
-import { SafeAreaView, StatusBar } from 'react-native';
-import { styles } from './src/theme/LaunchTheme';
-import LoginUserScreen from './src/screens/LoginUserScreen';
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
+import {NavigationDrawer} from './src/navigation/NavigationDrawer';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-const App = () => {
+export const App = () => {
   return (
-    // <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    //   <Text style={{ fontSize: 24, fontWeight: 'bold' }}>¡Hola Mundo! 🌍</Text>
-    // </View>
-    <SafeAreaView style={styles.container}>
-    <StatusBar backgroundColor="black" />
-    <LoginUserScreen />
-  </SafeAreaView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <NavigationDrawer />
+      </NavigationContainer>
+    </GestureHandlerRootView>
   );
 };
 

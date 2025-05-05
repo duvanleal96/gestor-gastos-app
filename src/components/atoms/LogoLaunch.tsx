@@ -5,7 +5,6 @@ import { styles } from '../../theme/LaunchTheme';
 const LogoLaunch = () => {
   return (
     <Image
-      // eslint-disable-next-line react-native/no-inline-styles
       style={styles.logo}
       source={require('../../../assets/images/logo.png')}
     />

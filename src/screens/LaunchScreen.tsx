@@ -1,6 +1,6 @@
 import React from 'react';
-import { StatusBar, View } from 'react-native';
-import { styles } from '../theme/LaunchTheme';
+import {StatusBar, View} from 'react-native';
+import {styles} from '../theme/LaunchTheme';
 import LogoLaunch from '../components/atoms/LogoLaunch';
 
 const LaunchScreen = () => {

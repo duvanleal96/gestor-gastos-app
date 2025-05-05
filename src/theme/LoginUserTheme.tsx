@@ -1,44 +1,96 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 
- export const stylesLoginUser = StyleSheet.create({
-   container: {
-     flex: 1,
-   },
-   container1: {
-     flex: 1,
-   },
-   container2: {
-     flex: 1,
-   },
-   logo: {
-     width: 80,
-     height: 80,
-     left: '35%',
-   },
-   input: {
-     height: 40,
-     width: 250,
-     borderWidth: 0.23,
-     padding: 1,
-     textAlign: 'center',
-     bottom: 10,
-   },
-   text: {
-     position: 'relative',
-     color: 'black',
-     fontSize: 19,
-     textAlign: 'center',
-   },
-   fixToText: {
-     flexDirection: 'row',
-     justifyContent: 'space-between',
-   },
-   title: {
-     position: 'relative',
-     color: 'black',
-     fontSize: 15,
-     textAlign: 'center',
-     fontFamily: 'arial',
-     bottom: -100,
-   },
- });
+export const stylesLoginUser = StyleSheet.create({
+  logo: {
+    width: 144,
+    height: 144,
+  },
+  inputContainer: {
+    height: 60,
+    width: '75%',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'rgba(0, 0, 0, 0.38)',
+    borderRadius: 4,
+  },
+  input: {
+    height: '100%',
+    textAlignVertical: 'center',
+    padding: 10,
+    color: 'black',
+  },
+  fixToText: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  formContainer: {
+    flex: 4,
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    width: '100%',
+    minHeight: 50,
+  },
+  text: {
+    color: 'black',
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  btn: {
+    backgroundColor: '#1554F6',
+    height: 50,
+    width: '75%',
+    alignSelf: 'center',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnText: {
+    fontFamily: 'Roboto',
+    fontSize: 16,
+    color: 'white',
+    fontWeight: '500',
+  },
+  btnIcon: {
+    flexDirection: 'row',
+    backgroundColor: '#FFFFFF',
+    height: 50,
+    width: '75%',
+    alignSelf: 'center',
+    borderRadius: 4,
+    borderColor: '#E5E5E5',
+    borderWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  btnTextIcon: {
+    fontFamily: 'Roboto',
+    alignSelf: 'center',
+    fontSize: 18,
+    color: 'black',
+    fontWeight: '500',
+  },
+  icon: {
+    width: 24,
+    height: 24,
+    marginLeft: 10,
+    position: 'relative',
+    left: -45,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.12)',
+  },
+  containerRule: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '75%',
+  },
+  textRule: {
+    marginRight: 8,
+    marginLeft: 8,
+    color: 'rgba(0, 0, 0, 0.6)',
+  },
+});
