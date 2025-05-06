@@ -9,7 +9,7 @@ interface Props {
 const LogoTypeLogin = ({ size }: Props) => {
   return (
     <Text style={getTextStyles(size)}>
-      MATERIAL <Text style={style.prupleText}>2</Text> UI
+      GESTOR <Text style={style.prupleText}>APP</Text>
     </Text>
   );
 };

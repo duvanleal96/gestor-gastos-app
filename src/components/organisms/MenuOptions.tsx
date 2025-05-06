@@ -1,20 +1,26 @@
 import {View} from 'react-native';
-import React from 'react';
 import {MyDrawerContentComponentProps} from '../../interface/MyDrawerContentComponentProps';
-import {stylesLoginUser} from '../../theme/LoginUserTheme';
 import LogoLaunch from '../atoms/LogoLaunch';
 import {IconsMenu} from '../molecules/IconsMenu';
 import {TextMenu} from '../atoms/TextMenu';
 import {styleMenuTheme} from '../../theme/MenuOptionsTheme';
+import { useDispatch } from 'react-redux';
+import { resetClient } from '../../redux/slices/ClientSlice';
 
 export const MenuOptions = ({navigation}: MyDrawerContentComponentProps) => {
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(resetClient()); // Limpia el estado en Redux
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'home' }], // Redirige al login sin posibilidad de volver atrás
+    });
+  };
   return (
     <View style={styleMenuTheme.main}>
       <View>
         <TextMenu />
-      </View>
-      <View style={styleMenuTheme.containerRule}>
-        <View style={stylesLoginUser.line} />
       </View>
       <View style={styleMenuTheme.container}>
         <LogoLaunch />
@@ -30,7 +36,7 @@ export const MenuOptions = ({navigation}: MyDrawerContentComponentProps) => {
           icon="bookmark"
           action={() => navigation.navigate('ChangeThemeScreen')}
         />
-        <IconsMenu icon="close" text="Logout" />
+        <IconsMenu icon="close" text="Logout" action={handleLogout}/>
       </View>
     </View>
   );

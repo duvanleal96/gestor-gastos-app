@@ -6,12 +6,14 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  Text,
 } from 'react-native';
 import {MyStackScreenProps} from '../interface/MyStackScreenProps';
-import {RuleLogin} from '../components/atoms/RuleLogin';
 import Logo from '../components/molecules/Logo';
 import {UserLoginForm} from '../components/organisms/UserLoginForm';
 import {styles} from '../theme/GestorTheme';
+import { TouchableOpacity } from 'react-native';
+import { stylesLoginUser } from '../theme/LoginUserTheme';
 
 const LoginUserScreen = ({navigation}: MyStackScreenProps) => {
   useEffect(() => {
@@ -44,12 +46,9 @@ const LoginUserScreen = ({navigation}: MyStackScreenProps) => {
         <UserLoginForm
           action={() => navigation.navigate('PaswordUserScreen')}
         />
-        <View style={styles.registerContainer}>
-          <RuleLogin
-            text="Register"
-            action={() => navigation.navigate('RegisterScreen')}
-          />
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+        <Text style={stylesLoginUser.registerText}>Register</Text>
+        </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>
   );

@@ -1,18 +1,35 @@
 import React from 'react';
-import {View} from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {MyStackScreenProps} from '../interface/MyStackScreenProps';
 import {styles} from '../theme/GestorTheme';
-import {RuleLogin} from '../components/atoms/RuleLogin';
 import Logo from '../components/molecules/Logo';
 import {UserPasswordForm} from '../components/organisms/UserPasswordForm';
+import {stylesLoginUser} from '../theme/LoginUserTheme';
 
 const PasswordUserScreen = ({navigation}: MyStackScreenProps) => {
   return (
-    <View style={styles.main}>
-      <Logo />
-      <UserPasswordForm action={() => navigation.navigate('TabNavigation')} />
-      <RuleLogin text="or use" />
-    </View>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      style={styles.main}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        keyboardShouldPersistTaps="handled">
+        <View style={styles.logoContainer}>
+          <Logo />
+        </View>
+        <UserPasswordForm action={() => navigation.navigate('TabNavigation')} />
+        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+          <Text style={stylesLoginUser.registerText}>Register</Text>
+        </TouchableOpacity>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

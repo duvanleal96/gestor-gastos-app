@@ -2,7 +2,11 @@ import * as React from 'react';
 import {StackNavigation} from './StackNavigation';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {MyDrawerContentComponentProps} from '../interface/MyDrawerContentComponentProps';
+import {RegistrerScreen} from '../screens/RegistrerScreen';
 import {MenuOptions} from '../components/organisms/MenuOptions';
+import {TabNavigation} from './TabNavigation';
+import { ChangePasswordScreen } from '../screens/ChangePasswordScreen';
+import { ChangeThemeScreen } from '../screens/ChangeThemeScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -10,6 +14,7 @@ export function NavigationDrawer() {
   return (
     <Drawer.Navigator
       initialRouteName="home"
+      // eslint-disable-next-line react/no-unstable-nested-components
       drawerContent={(props: MyDrawerContentComponentProps) => (
         <MenuOptions {...props} />
       )}>
@@ -20,6 +25,51 @@ export function NavigationDrawer() {
           drawerItemStyle: {display: 'none'},
           headerShown: false,
           swipeEnabled: false,
+        }}
+      />
+      <Drawer.Screen
+        name="TabNavigation"
+        component={TabNavigation}
+        options={{
+          headerTintColor: 'white',
+          title: 'Gestor',
+          drawerItemStyle: {display: 'none'},
+          headerStyle: {
+            backgroundColor: 'red',
+          },
+        }}
+      />
+      <Drawer.Screen
+        name="RegisterScreen"
+        component={RegistrerScreen}
+        options={{
+          drawerItemStyle: {display: 'none'},
+          headerShown: false,
+          swipeEnabled: false,
+        }}
+      />
+      <Drawer.Screen
+        name="ChangePasswordScreen"
+        component={ChangePasswordScreen}
+        options={{
+          headerTintColor: 'white',
+          title: 'Gestor',
+          drawerItemStyle: {display: 'none'},
+          headerStyle: {
+            backgroundColor: 'red',
+          },
+        }}
+      />
+      <Drawer.Screen
+        name="ChangeThemeScreen"
+        component={ChangeThemeScreen}
+        options={{
+          headerTintColor: 'white',
+          title: 'Gestor',
+          drawerItemStyle: {display: 'none'},
+          headerStyle: {
+            backgroundColor: 'red',
+          },
         }}
       />
     </Drawer.Navigator>

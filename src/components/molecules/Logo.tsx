@@ -6,7 +6,7 @@ import LogoTypeLogin from '../atoms/LogoTypeLogin';
 const Logo = () => {
   return (
     <View style={styles.logoContainer}>
-      <LogoLaunch size={100} />
+      <LogoLaunch />
       <LogoTypeLogin />
     </View>
   );

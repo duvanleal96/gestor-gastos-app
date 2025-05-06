@@ -2,8 +2,8 @@ import { View } from 'react-native';
 import React from 'react';
 import { MainButton } from '../components/atoms/MainButton';
 import { FormInput } from '../components/molecules/FormInput';
-import { MyStackScreenProps } from '../interface/MyStackScreenProps';
 import { styles } from '../theme/GestorTheme';
+import { MyStackScreenProps } from '../interface/MyStackScreenProps';
 
 export const ChangePasswordScreen = ({ navigation }: MyStackScreenProps) => {
   return (
