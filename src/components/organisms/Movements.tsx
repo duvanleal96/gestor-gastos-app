@@ -1,52 +1,31 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text} from 'react-native';
 import React from 'react';
-import {StyleAccountTheme} from '../../theme/AccountTheme';
+import { DataInterface } from '../../interface/DataInterface';
+import { StyleAccountTheme } from '../../theme/AccountTheme';
 
-interface Props {
-  id: string;
-  title: string;
-  amount: number;
-  image: string;
-  date: string;
-  income?: string;
-  outcome?: string;
-}
 
-const Movements = ({title, amount, image, date, income}: Props) => {
-  const currencyFormat = (number: number) => {
+  const renderItem = (itemData: {item: DataInterface}) => {
+    const {item} = itemData;
     return (
-      '$' +
-      Number(number)
-        .toFixed(0)
-        .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+      <View style={StyleAccountTheme.transactionItem}>
+        <View style={StyleAccountTheme.transactionInfo}>
+          <Text style={StyleAccountTheme.transactionTitle}>{item.title}</Text>
+          <Text style={StyleAccountTheme.transactionDate}>
+            {new Date(item.date).toLocaleDateString('es-ES', {
+              day: '2-digit',
+              month: 'short',
+              year: 'numeric',
+            })}
+          </Text>
+        </View>
+        <Text style={[
+          StyleAccountTheme.transactionAmount,
+          item.income ? StyleAccountTheme.income : StyleAccountTheme.expense,
+        ]}>
+          {item.income ? `+$${item.amount.toLocaleString()}` : `-$${item.amount.toLocaleString()}`}
+        </Text>
+      </View>
     );
   };
-  return (
-    <View style={StyleAccountTheme.transaction}>
-      <View>
-        <Image
-          source={{uri: image}}
-          // source={require('../assets/images/9E2.jpg')}
-          style={StyleAccountTheme.image}
-        />
-      </View>
-      <View style={StyleAccountTheme.textContainer}>
-        <Text style={StyleAccountTheme.reason} numberOfLines={1}>
-          {title}
-        </Text>
-        <Text style={StyleAccountTheme.date}>{date}</Text>
-      </View>
 
-      <Text
-        style={{
-          ...(income === ''
-            ? StyleAccountTheme.outcomeAmount
-            : StyleAccountTheme.incomeAmount),
-        }}>
-        {currencyFormat(amount)}
-      </Text>
-    </View>
-  );
-};
-
-export default Movements;
+export default renderItem;

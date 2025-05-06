@@ -14,7 +14,7 @@ export function TabNavigation() {
       screenOptions={{
         tabBarActiveTintColor: 'white',
         tabBarStyle: {
-          backgroundColor: 'red',
+          backgroundColor: '#7CE2FA',
           height: 60,
         },
         headerShown: false,

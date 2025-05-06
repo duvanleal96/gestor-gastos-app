@@ -6,7 +6,7 @@ export const StyleAccountTheme = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   circle: {
-    backgroundColor: 'red',
+    backgroundColor: '#7CE2FA',
     borderRadius: 10000000,
     //bottom: 500,
     top: -1050,
@@ -139,4 +139,48 @@ export const StyleAccountTheme = StyleSheet.create({
     color: 'red',
     fontWeight: 'bold',
   },
+  chartContainer: {
+      padding: 20,
+      backgroundColor: '#fff',
+      margin: 10,
+      borderRadius: 10,
+      elevation: 3,
+      alignItems: 'center'
+    },
+  list: {
+      paddingBottom: 30
+  },
+  transactionItem: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 15,
+      marginVertical: 5,
+      backgroundColor: '#fff',
+      borderRadius: 8,
+      elevation: 1
+  },
+    transactionInfo: {
+      flex: 1
+    },
+    transactionTitle: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#333'
+    },
+    transactionDate: {
+      fontSize: 12,
+      color: '#777',
+      marginTop: 3
+    },
+    transactionAmount: {
+      fontSize: 16,
+      fontWeight: '700'
+    },
+    income: {
+      color: '#4CAF50'
+    },
+    expense: {
+      color: '#F44336'
+    }
 });

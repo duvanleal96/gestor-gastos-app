@@ -31,11 +31,6 @@ export const MenuOptions = ({navigation}: MyDrawerContentComponentProps) => {
           icon="settings"
           action={() => navigation.navigate('ChangePasswordScreen')}
         />
-        <IconsMenu
-          text="Change App Theme"
-          icon="bookmark"
-          action={() => navigation.navigate('ChangeThemeScreen')}
-        />
         <IconsMenu icon="close" text="Logout" action={handleLogout}/>
       </View>
     </View>
