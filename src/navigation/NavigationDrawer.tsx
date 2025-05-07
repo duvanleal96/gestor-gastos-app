@@ -51,11 +51,11 @@ export function NavigationDrawer() {
         name="ChangePasswordScreen"
         component={ChangePasswordScreen}
         options={{
-          headerTintColor: 'white',
+          headerTintColor: '#EAF4FF',
           title: 'Gestor',
           drawerItemStyle: {display: 'none'},
           headerStyle: {
-            backgroundColor: 'red',
+            backgroundColor: '#7CE2FA',
           },
         }}
       />

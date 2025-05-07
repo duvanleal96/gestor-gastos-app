@@ -6,8 +6,8 @@ import {styleMenuTheme} from '../../theme/MenuOptionsTheme';
 export const TextMenu = () => {
   const {client} = useSelector((state: any) => state.client);
   return (
-    <Text style={styleMenuTheme.textAccountName}>
-      {client ? client.name : null}
+    <Text style={styleMenuTheme.userName}>
+      Bienvenido {client ?? 'Duvan'}
     </Text>
   );
 };
