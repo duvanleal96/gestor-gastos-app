@@ -1,17 +1,19 @@
+// components/organisms/UserPasswordForm.tsx
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { stylesLoginUser } from '../../theme/LoginUserTheme';
 
 interface Props {
-  action?: () => void;
+  password: string;
+  setPassword: (password: string) => void;
+  action: () => void;
+  loading?: boolean;
 }
 
-export const UserPasswordForm = ({ action }: Props) => {
-  const [password, setPassword] = React.useState('');
-
+export const UserPasswordForm = ({ password, setPassword, action, loading }: Props) => {
   return (
     <View style={stylesLoginUser.container}>
-      <Text style={stylesLoginUser.title}>Login or sign up for free</Text>
+      <Text style={stylesLoginUser.title}>Enter your password</Text>
 
       <View style={stylesLoginUser.inputContainer}>
         <TextInput
@@ -29,10 +31,14 @@ export const UserPasswordForm = ({ action }: Props) => {
         style={stylesLoginUser.btn}
         onPress={action}
         activeOpacity={0.8}
+        disabled={loading}
       >
-        <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
+        {loading ? (
+          <ActivityIndicator color="white" />
+        ) : (
+          <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
+        )}
       </TouchableOpacity>
-
     </View>
   );
 };

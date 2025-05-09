@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
+  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -7,13 +8,49 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {MyStackScreenProps} from '../interface/MyStackScreenProps';
-import {styles} from '../theme/GestorTheme';
+import { MyStackScreenProps } from '../interface/MyStackScreenProps'; // Importa los tipos corregidos
+import { styles } from '../theme/GestorTheme';
 import Logo from '../components/molecules/Logo';
-import {UserPasswordForm} from '../components/organisms/UserPasswordForm';
-import {stylesLoginUser} from '../theme/LoginUserTheme';
+import { UserPasswordForm } from '../components/organisms/UserPasswordForm';
+import { stylesLoginUser } from '../theme/LoginUserTheme';
+import { supabase } from '../lib/supabase';
 
-const PasswordUserScreen = ({navigation}: MyStackScreenProps) => {
+// Especifica que esta pantalla espera el parámetro 'email'
+const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = ({
+  navigation,
+  route,
+}) => {
+  const { email } = route.params;
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLogin = async () => {
+    if (password.length < 6) {
+      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signIn({
+        email,
+        password,
+      });
+
+      if (error) {throw error;}
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'TabNavigation' }],
+      });
+    } catch (error) {
+      Alert.alert('Error', 'Credenciales incorrectas');
+      console.error('Error de autenticación:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -24,8 +61,13 @@ const PasswordUserScreen = ({navigation}: MyStackScreenProps) => {
         <View style={styles.logoContainer}>
           <Logo />
         </View>
-        <UserPasswordForm action={() => navigation.navigate('TabNavigation')} />
-        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+        <UserPasswordForm
+          password={password}
+          setPassword={setPassword}
+          action={handleLogin}
+          loading={loading}
+        />
+        <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen', { email })}>
           <Text style={stylesLoginUser.registerText}>Register</Text>
         </TouchableOpacity>
       </ScrollView>

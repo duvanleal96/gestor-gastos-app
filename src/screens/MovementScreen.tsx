@@ -73,13 +73,10 @@ export const MovementScreen = ({navigation}: any) => {
 
   return (
     <View style={StyleAccountTheme.container}>
-      {/* Sección del gráfico */}
       <View style={StyleAccountTheme.chartContainer}>
       <ChartWithLegend movements = {movements}/>
         <MovementBalance balance={balance} />
       </View>
-
-      {/* Lista de movimientos */}
       <FlatList
         data={movements}
         renderItem={renderItem}

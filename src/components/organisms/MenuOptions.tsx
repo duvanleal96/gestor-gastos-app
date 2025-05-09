@@ -5,17 +5,35 @@ import { styleMenuTheme } from '../../theme/MenuOptionsTheme';
 import { useDispatch } from 'react-redux';
 import { resetClient } from '../../redux/slices/ClientSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { movements } from '../../screens/MovementScreen';
+import { supabase } from '../../lib/supabase'; // Importa supabase directamente
+import { CommonActions } from '@react-navigation/native';
 
 export const MenuOptions = ({ navigation }: MyDrawerContentComponentProps) => {
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(resetClient());
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'home' }],
-    });
+  const handleLogout = async () => {
+    try {
+      // 1. Cerrar sesión en Supabase v1.35.7
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('Error al cerrar sesión:', error.message);
+        return;
+      }
+
+      // 2. Limpiar el estado de Redux
+      dispatch(resetClient());
+
+      // 3. Navegar al login y resetear el stack de navegación
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: 'home' }],
+        })
+      );
+    } catch (error) {
+      console.error('Error en el proceso de logout:', error);
+    }
   };
 
   return (
@@ -24,16 +42,14 @@ export const MenuOptions = ({ navigation }: MyDrawerContentComponentProps) => {
       <View style={styleMenuTheme.header}>
         <View style={styleMenuTheme.avatarContainer}>
           <Image
-            source = {{ uri: movements.map(i => i.image).toString() || 'https://reactjs.org/logo-og.png' }}
+            source={{ uri: 'https://reactjs.org/logo-og.png' }} // Imagen por defecto
             style={styleMenuTheme.avatarImage}
           />
         </View>
 
         <View style={styleMenuTheme.userInfo}>
-          <Text style={styleMenuTheme.userName}>
-            { 'Bienvenido Duvan'}
-          </Text>
-            <Text style={styleMenuTheme.userEmail}>{'Duvanleal65@gmail.com'}</Text>
+          <Text style={styleMenuTheme.userName}>Bienvenido Duvan</Text>
+          <Text style={styleMenuTheme.userEmail}>Duvanleal65@gmail.com</Text>
         </View>
       </View>
 

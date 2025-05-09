@@ -41,6 +41,7 @@ export function TabNavigation() {
         name="Registrar"
         component={PaymentScreen}
         options={{
+          // eslint-disable-next-line react/no-unstable-nested-components
           tabBarIcon: ({color, size}) => (
             <Icon3MaterialIcons name="payment" size={size} color={color} />
           ),

@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { stylesLoginUser } from '../../theme/LoginUserTheme';
 
 interface Props {
+  email: string;
+  setEmail: (email: string) => void;
   action?: () => void;
+  loading?: boolean;
 }
-export const UserLoginForm = ({ action }: Props) => {
-  const [email, setEmail] = React.useState('');
+export const UserLoginForm = ({ email, setEmail, action, loading }: Props) => {
 
   return (
     <View style={stylesLoginUser.container}>
@@ -15,22 +17,31 @@ export const UserLoginForm = ({ action }: Props) => {
       <View style={stylesLoginUser.inputContainer}>
         <TextInput
           style={stylesLoginUser.input}
-          placeholder="Email or Username"
+          placeholder="Email"
           placeholderTextColor="rgba(0, 0, 0, 0.5)"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
           autoCapitalize="none"
+          editable={!loading}
         />
       </View>
 
-        <TouchableOpacity
-                style={stylesLoginUser.btn}
-                 onPress={action}
-                 activeOpacity={0.8}
-              >
-              <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
-              </TouchableOpacity>
+      <TouchableOpacity
+        style={[
+          stylesLoginUser.btn,
+          loading && { backgroundColor: '#cccccc' },
+        ]}
+        onPress={action}
+        activeOpacity={0.8}
+        disabled={loading}
+      >
+        {loading ? (
+          <ActivityIndicator color="white" />
+        ) : (
+          <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
+        )}
+      </TouchableOpacity>
     </View>
   );
 };

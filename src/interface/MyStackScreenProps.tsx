@@ -1,3 +1,12 @@
-import {StackScreenProps} from '@react-navigation/stack';
 
-export interface MyStackScreenProps extends StackScreenProps<any, any> {}
+import { StackScreenProps } from '@react-navigation/stack';
+
+export type RootStackParamList = {
+  LoginUserScreen: undefined;
+  PasswordUserScreen: { email: string };
+  RegisterScreen: { email?: string };
+  TabNavigation: undefined;
+};
+
+
+export type MyStackScreenProps<T extends keyof RootStackParamList> = StackScreenProps<RootStackParamList, T>;
