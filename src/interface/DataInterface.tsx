@@ -2,10 +2,12 @@ export interface DataInterface {
   id: string;
   title: string;
   amount: number;
-  image: string;
+  image?: string;
   date: string;
   income: string;
   outcome: string;
+  category?: string;
+  type?:string; // Nuevo campo para categorías
 }
 export interface profile {
   id: string;

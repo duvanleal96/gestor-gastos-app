@@ -5,7 +5,6 @@ import {MyDrawerContentComponentProps} from '../interface/MyDrawerContentCompone
 import {RegistrerScreen} from '../screens/RegistrerScreen';
 import {MenuOptions} from '../components/organisms/MenuOptions';
 import {TabNavigation} from './TabNavigation';
-import { ChangePasswordScreen } from '../screens/ChangePasswordScreen';
 
 const Drawer = createDrawerNavigator();
 
@@ -54,18 +53,6 @@ export function NavigationDrawer() {
           drawerItemStyle: {display: 'none'},
           headerShown: false,
           swipeEnabled: false,
-        }}
-      />
-      <Drawer.Screen
-        name="ChangePasswordScreen"
-        component={ChangePasswordScreen}
-        options={{
-          headerTintColor: '#EAF4FF',
-          title: 'Gestor',
-          drawerItemStyle: {display: 'none'},
-          headerStyle: {
-            backgroundColor: '#7CE2FA',
-          },
         }}
       />
     </Drawer.Navigator>

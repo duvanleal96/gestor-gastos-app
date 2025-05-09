@@ -13,12 +13,12 @@ interface Props {
 export const UserPasswordForm = ({ password, setPassword, action, loading }: Props) => {
   return (
     <View style={stylesLoginUser.container}>
-      <Text style={stylesLoginUser.title}>Enter your password</Text>
+      <Text style={stylesLoginUser.title}>Ingresa tu contraseña</Text>
 
       <View style={stylesLoginUser.inputContainer}>
         <TextInput
           style={stylesLoginUser.input}
-          placeholder="Password"
+          placeholder="Contraseña"
           placeholderTextColor="rgba(0, 0, 0, 0.5)"
           value={password}
           onChangeText={setPassword}
@@ -36,7 +36,7 @@ export const UserPasswordForm = ({ password, setPassword, action, loading }: Pro
         {loading ? (
           <ActivityIndicator color="white" />
         ) : (
-          <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
+          <Text style={stylesLoginUser.buttonText}>CONTINUAR</Text>
         )}
       </TouchableOpacity>
     </View>

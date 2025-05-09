@@ -12,7 +12,7 @@ export const UserLoginForm = ({ email, setEmail, action, loading }: Props) => {
 
   return (
     <View style={stylesLoginUser.container}>
-      <Text style={stylesLoginUser.title}>Login or sign up for free</Text>
+      <Text style={stylesLoginUser.title}>Inicia sesión o regístrate gratis</Text>
 
       <View style={stylesLoginUser.inputContainer}>
         <TextInput
@@ -39,7 +39,7 @@ export const UserLoginForm = ({ email, setEmail, action, loading }: Props) => {
         {loading ? (
           <ActivityIndicator color="white" />
         ) : (
-          <Text style={stylesLoginUser.buttonText}>CONTINUE</Text>
+          <Text style={stylesLoginUser.buttonText}>CONTINUAR</Text>
         )}
       </TouchableOpacity>
     </View>

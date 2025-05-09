@@ -53,15 +53,6 @@ export const MenuOptions = ({ navigation }: MyDrawerContentComponentProps) => {
       {/* Opciones del menú */}
       <View style={styleMenuTheme.menuItems}>
         <TouchableOpacity
-          style={styleMenuTheme.menuItem}
-          onPress={() => navigation.navigate('ChangePasswordScreen')}
-        >
-          <Icon name="vpn-key" size={24} style={styleMenuTheme.menuIcon} />
-          <Text style={styleMenuTheme.menuText}>Cambiar contraseña</Text>
-          <Icon name="chevron-right" size={24} style={styleMenuTheme.arrowIcon} />
-        </TouchableOpacity>
-
-        <TouchableOpacity
           style={[styleMenuTheme.menuItem, styleMenuTheme.logoutItem]}
           onPress={handleLogout}
         >

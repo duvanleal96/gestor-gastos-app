@@ -64,7 +64,7 @@ const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = (
           loading={loading}
         />
         <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen', { email })}>
-          <Text style={stylesLoginUser.registerText}>Register</Text>
+          <Text style={stylesLoginUser.registerText}>registrate</Text>
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>

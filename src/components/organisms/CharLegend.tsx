@@ -1,26 +1,36 @@
+/* eslint-disable react-native/no-inline-styles */
+// components/organisms/CharLegend.tsx
 import { View, Text, StyleSheet } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import { DataInterface } from '../../interface/DataInterface';
 
-export const ChartWithLegend = ({movements}: {movements : DataInterface[]} ) => {
-    const chartData = [
-      {
-        x: 'Ingresos',
-        y: movements.filter(m => m.income).reduce((sum, m) => sum + m.amount, 0),
-        color: '#4CAF50',
-      },
-      {
-        x: 'Gastos',
-        y: movements.filter(m => !m.income).reduce((sum, m) => sum + m.amount, 0),
-        color: '#F44336',
-      },
-    ];
-    const totalIngresos = movements.filter(m => m.income).reduce((sum, m) => sum + m.amount, 0);
-    const totalGastos = movements.filter(m => !m.income).reduce((sum, m) => sum + m.amount, 0);
-    const totalGeneral = totalIngresos + totalGastos;
+interface ChartProps {
+  movements: DataInterface[];
+  incomeTotal: number;
+  expenseTotal: number;
+}
+
+export const ChartWithLegend = ({
+  movements,
+  incomeTotal,
+  expenseTotal,
+}: ChartProps) => {
+  if (movements.length === 0) {
+    return (
+      <View style={styles.chartContainer}>
+        <Text>No hay movimientos para mostrar</Text>
+      </View>
+    );
+  }
+
+  const totalGeneral = incomeTotal + expenseTotal;
+  const chartData = [
+    { x: 'Ingresos', y: incomeTotal, color: '#4CAF50' },
+    { x: 'Gastos', y: expenseTotal, color: '#F44336' },
+  ];
+
   return (
     <View style={styles.chartContainer}>
-      {/* Gráfico */}
       <VictoryPie
         data={chartData}
         colorScale={chartData.map(d => d.color)}
@@ -35,21 +45,24 @@ export const ChartWithLegend = ({movements}: {movements : DataInterface[]} ) => 
           },
         }}
       />
-
-      {/* Leyenda */}
       <View style={styles.legendContainer}>
         <View style={styles.legendItem}>
           <View style={[styles.colorBox, { backgroundColor: '#4CAF50' }]} />
-          <Text style={styles.legendText}>Ingresos ({getPercentage(totalIngresos, totalGeneral)}%)</Text>
+          <Text style={styles.legendText}>
+            Ingresos ({getPercentage(incomeTotal, totalGeneral)}%)
+          </Text>
         </View>
         <View style={styles.legendItem}>
           <View style={[styles.colorBox, { backgroundColor: '#F44336' }]} />
-          <Text style={styles.legendText}>Gastos ({getPercentage(totalGastos, totalGeneral)}%)</Text>
+          <Text style={styles.legendText}>
+            Gastos ({getPercentage(expenseTotal, totalGeneral)}%)
+          </Text>
         </View>
       </View>
     </View>
   );
 };
+
 
 const getPercentage = (value: number, total: number) => {
     if (total <= 0) {return '0';}

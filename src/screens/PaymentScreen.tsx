@@ -24,8 +24,7 @@ export const PaymentScreen = () => {
 
   const dispatch = useDispatch();
   const [categories, setCategories] = useState<Category[]>([]);
- 
-   // Cargar categorías al iniciar
+
    useEffect(() => {
     const loadCategories = async () => {
       const { data, error } = await supabase
@@ -34,7 +33,6 @@ export const PaymentScreen = () => {
 
       if (!error && data) {
         setCategories(data);
-        // Seleccionar primera categoría por defecto
         if (data.length > 0) {setForm(prev => ({...prev, category_id: data[0].id}));}
       }
     };

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import { View, Text } from 'react-native';
 import { FormText } from '../atoms/FormText';
 import { Icons } from '../atoms/Icons';
