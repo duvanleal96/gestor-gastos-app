@@ -5,6 +5,6 @@ export interface ClientInterface {
   phone: string;
   photo: string;
   state: number;
-  createdAt: Date;
+  createdAt: string;
   updatedAt: Date | null;
 }

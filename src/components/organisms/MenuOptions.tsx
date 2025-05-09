@@ -14,18 +14,14 @@ export const MenuOptions = ({ navigation }: MyDrawerContentComponentProps) => {
 
   const handleLogout = async () => {
     try {
-      // 1. Cerrar sesión en Supabase v1.35.7
       const { error } = await supabase.auth.signOut();
       
       if (error) {
         console.error('Error al cerrar sesión:', error.message);
         return;
       }
-
-      // 2. Limpiar el estado de Redux
       dispatch(resetClient());
 
-      // 3. Navegar al login y resetear el stack de navegación
       navigation.dispatch(
         CommonActions.reset({
           index: 0,

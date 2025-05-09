@@ -29,14 +29,12 @@ export const RegistrerScreen = ({ navigation }: { navigation: any }) => {
         formData.name,
         formData.phone
       );
-      console.log('hi');
       Alert.alert('Éxito', 'Registro completado');
       navigation.reset({
         index: 0,
         routes: [{ name: 'home' }],
       });
     } catch (error: any) {
-      console.log('hiwwww', error);
       Alert.alert('Error', error.message || 'Error en el registro');
     } finally {
       setLoading(false);

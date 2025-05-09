@@ -8,7 +8,7 @@ const initialState: ClientInterface = {
   phone: '',
   photo: 'https://reactjs.org/logo-og.png',
   state: 1,
-  createdAt: new Date(),
+  createdAt: '',
   updatedAt: null,
 };
 
@@ -20,7 +20,7 @@ export const clientSlice = createSlice({
       // Usamos `Partial` para permitir actualizaciones parciales
       return { ...state, ...action.payload };
     },
-    resetClient: (state) => {
+    resetClient: () => {
       // Retornamos el initialState para limpiar el estado
       return initialState;
     },
