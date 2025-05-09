@@ -1,28 +1,37 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
-import {Icons} from '../atoms/Icons';
-import {FormText} from '../atoms/FormText';
+import { View, Text } from 'react-native';
+import { FormText } from '../atoms/FormText';
+import { Icons } from '../atoms/Icons';
 
 interface Props {
   icon?: string;
   placeholder: string;
   isInvalid?: boolean;
   errorMsg?: string;
+  value?: string;
+  onChangeText?: (text: string) => void;
+  secureTextEntry?: boolean;
 }
-export const FormInput = ({icon, placeholder, isInvalid, errorMsg}: Props) => {
-  const styles = StyleSheet.create({
-    container: {flexDirection: 'row', alignSelf: 'center', width: '92%'},
-    textContainer: {flexDirection: 'column', flex: 1},
-    errorTxt: {
-      color: isInvalid ? 'red' : 'white',
-    },
-  });
+
+export const FormInput = ({
+  icon,
+  placeholder,
+  isInvalid,
+  errorMsg,
+  value,
+  onChangeText,
+  secureTextEntry,
+}: Props) => {
   return (
-    <View style={styles.container}>
+    <View style={{ flexDirection: 'row', alignSelf: 'center', width: '92%' }}>
       <Icons iconName={icon} />
-      <View style={styles.textContainer}>
-        <FormText placeholder={placeholder} />
-        <Text style={styles.errorTxt}>{errorMsg ? errorMsg : 'Error'}</Text>
+      <View style={{ flexDirection: 'column', flex: 1 }}>
+        <FormText
+          placeholder={placeholder}
+          value={value}
+          onChangeText={onChangeText}
+          secureTextEntry={secureTextEntry}
+        />
+        <Text style={{ color: isInvalid ? 'red' : 'white' }}>{errorMsg || ''}</Text>
       </View>
     </View>
   );

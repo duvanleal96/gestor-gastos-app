@@ -13,19 +13,9 @@ export function NavigationDrawer() {
   return (
     <Drawer.Navigator
       initialRouteName="home"
-      // eslint-disable-next-line react/no-unstable-nested-components
       drawerContent={(props: MyDrawerContentComponentProps) => (
         <MenuOptions {...props} />
       )}>
-      <Drawer.Screen
-        name="home"
-        component={StackNavigation}
-        options={{
-          drawerItemStyle: {display: 'none'},
-          headerShown: false,
-          swipeEnabled: false,
-        }}
-      />
       <Drawer.Screen
         name="TabNavigation"
         component={TabNavigation}
@@ -33,9 +23,28 @@ export function NavigationDrawer() {
           headerTintColor: 'white',
           title: 'Gestor',
           drawerItemStyle: {display: 'none'},
+          headerShown: true,
           headerStyle: {
             backgroundColor: '#7CE2FA',
           },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }
+        }}
+      />
+       <Drawer.Screen
+        name="home"
+        component={StackNavigation}
+        options={{
+          drawerItemStyle: {display: 'none'},
+          headerShown: false,
+          swipeEnabled: false,
+          headerStyle: {
+            backgroundColor: '#7CE2FA',
+          },
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          }
         }}
       />
       <Drawer.Screen

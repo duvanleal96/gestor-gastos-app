@@ -1,52 +1,39 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 interface Props {
   text: string;
-  width?: number;
-  backgroundColor?: string;
-  color?: string;
-  action?: (textNumber: string) => void;
+  onPress?: () => void;
+  disabled: boolean;
 }
 
-export const MainButton = ({
-  text,
-  width,
-  backgroundColor,
-  color,
-  action,
-}: Props) => {
-  const styles = StyleSheet.create({
-    btn: {
-      backgroundColor: backgroundColor ? backgroundColor : '#1554F6',
-      height: 60,
-      width: width ? `${width}%` : '75%',
-      alignSelf: 'center',
-      borderRadius: 4,
-      alignItems: 'center',
-      justifyContent: 'center',
-      shadowColor: '#000',
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.24,
-      shadowRadius: 6,
-
-      elevation: 17,
-    },
-    btnText: {
-      fontFamily: 'Roboto',
-      fontSize: 18,
-      color: color ? color : 'white',
-      fontWeight: '600',
-    },
-  });
+export const MainButton = ({ text, onPress, disabled }: Props) => {
   return (
-    <TouchableOpacity
-      style={styles.btn}
-      onPress={() => (action ? action(text) : console.log({text}))}>
-      <Text style={styles.btnText}>{text}</Text>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
+      <Text disabled = {disabled } style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#0A5EFF',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 8,
+    marginTop: 20,
+    alignSelf: 'center',
+    width: '90%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+});

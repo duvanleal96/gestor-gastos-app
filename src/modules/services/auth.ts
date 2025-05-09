@@ -1,32 +1,28 @@
 import { supabase } from '../../lib/supabase';
 
 export const AuthService = {
-  async signUp(email: string, password: string, fullName: string) {
+    async signUp(email: string, password: string, name: string, phone: string) {
+        const { user, error: authError } = await supabase.auth.signUp({
+          email,
+          password,
+        });
+        
+        if (authError) throw authError;
     
-    const { user, error: authError, session } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (authError) {
-      throw authError;
-    }
-
-    const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .insert({
-        id: user?.id,
-        full_name: fullName,
-        email: email 
-      })
-      .single();
-
-    if (profileError) {
-      throw profileError;
-    }
-
-    return { user, profile: profileData, session };
-  },
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .insert({
+            id: user?.id,
+            name: name,
+            email: email,
+            phone: phone
+          })
+          .single();
+    
+        if (profileError) throw profileError;
+        console.log(user, 'user creado');
+        return { user };
+      },
 
   async signIn(email: string, password: string) {
     const { user, error, session } = await supabase.auth.signIn({

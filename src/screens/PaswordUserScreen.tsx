@@ -25,10 +25,6 @@ const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = (
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (password.length < 6) {
-      Alert.alert('Error', 'La contraseña debe tener al menos 6 caracteres');
-      return;
-    }
 
     setLoading(true);
     try {

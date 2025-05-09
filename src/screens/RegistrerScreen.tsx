@@ -1,19 +1,93 @@
-import React from 'react';
-import {View} from 'react-native';
-import {FormInput} from '../components/molecules/FormInput';
-import {StyleRegistrerTheme} from '../theme/RegistrerTheme';
-import {MainButton} from '../components/atoms/MainButton';
+import React, { useState } from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
+import { FormInput } from '../components/molecules/FormInput';
+import { MainButton } from '../components/atoms/MainButton';
+import { styles } from '../theme/GestorTheme';
+import { AuthService } from '../modules/services/auth';
+import LogoLaunch from '../components/atoms/LogoLaunch';
 
-export const RegistrerScreen = () => {
+export const RegistrerScreen = ({ navigation }: { navigation: any }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async () => {
+    if (!formData.name || !formData.email || !formData.phone || !formData.password) {
+      Alert.alert('Error', 'Por favor completa todos los campos');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await AuthService.signUp(
+        formData.email,
+        formData.password,
+        formData.name,
+        formData.phone
+      );
+      console.log('hi');
+      Alert.alert('Éxito', 'Registro completado');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'home' }],
+      });
+    } catch (error: any) {
+      console.log('hiwwww', error);
+      Alert.alert('Error', error.message || 'Error en el registro');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <View style={StyleRegistrerTheme.container}>
-      <FormInput icon="photo" placeholder="Photo" />
-      <FormInput icon="message" placeholder="Name and lastname" />
-      <FormInput icon="email" placeholder="Email" />
-      <FormInput icon="phone" placeholder="Phone" />
-      <FormInput icon="lock" placeholder="Password" />
-      <FormInput icon="lock" placeholder="Confirm password" />
-      <MainButton text={'Registrer'} />
+
+    <View style={stylesForm.container}>
+       <View style={styles.logoContainer}>
+          <LogoLaunch />
+            </View>
+      <FormInput
+        icon="user"
+        placeholder="Nombre completo"
+        value={formData.name}
+        onChangeText={(text) => setFormData({...formData, name: text})}
+      />
+      <FormInput
+        icon="mail"
+        placeholder="Email"
+        value={formData.email}
+        onChangeText={(text) => setFormData({...formData, email: text})}
+      />
+      <FormInput
+        icon="phone"
+        placeholder="Teléfono"
+        value={formData.phone}
+        onChangeText={(text) => setFormData({...formData, phone: text})}
+      />
+      <FormInput
+        icon="lock"
+        placeholder="Contraseña"
+        secureTextEntry
+        value={formData.password}
+        onChangeText={(text) => setFormData({...formData, password: text})}
+      />
+      <MainButton
+        text={loading ? 'Registrando...' : 'Registrar'}
+        onPress={handleRegister}
+        disabled={loading}
+      />
     </View>
   );
 };
+
+const stylesForm = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    padding: 20,
+    backgroundColor: '#fff',
+  },
+});

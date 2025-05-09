@@ -23,9 +23,9 @@ const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navi
   useEffect(() => {
     const backAction = () => {
       if (navigation.isFocused()) {
-        Alert.alert('Hold on!', 'Are you sure you want to exit?', [
-          {text: 'Cancel', onPress: () => null, style: 'cancel'},
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        Alert.alert('Espera!', '¿Estas seguro que deseas salir?', [
+          {text: 'Cancelar', onPress: () => null, style: 'cancel'},
+          {text: 'Salir', onPress: () => BackHandler.exitApp()},
         ]);
         return true;
       }
@@ -47,24 +47,18 @@ const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navi
 
     setLoading(true);
     try {
-      // Verificar si el email existe usando la API de Supabase v1.35.7
-      console.log(email, 'email');
       const { data, error } = await supabase
         .from('profiles')
         .select('id')
         .eq('email', email)
         .single();
-        console.log(error, 'error', data, 'data');
       if (error || !data) {
-        // Email no registrado, redirigir a registro
         navigation.navigate('RegisterScreen', { email });
       } else {
-        // Email existe, redirigir a pantalla de contraseña
         navigation.navigate('PasswordUserScreen', { email });
       }
     } catch (error) {
       Alert.alert('Error', 'Failed to verify email');
-      console.error('Verification error:', error);
     } finally {
       setLoading(false);
     }

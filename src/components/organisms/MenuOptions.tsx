@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { resetClient } from '../../redux/slices/ClientSlice';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { supabase } from '../../lib/supabase'; // Importa supabase directamente
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, useNavigationState } from '@react-navigation/native';
 
 export const MenuOptions = ({ navigation }: MyDrawerContentComponentProps) => {
+
   const dispatch = useDispatch();
 
   const handleLogout = async () => {

@@ -24,7 +24,7 @@ export const PaymentScreen = () => {
         errorMsg="The amount exceeds the allowable limit"
       />
       <FormInput icon="message" placeholder="comentario" />
-      <MainButton text="Send payment" width={92} />
+      <MainButton text="Send payment" disabled={false} />
     </View>
   );
 };
