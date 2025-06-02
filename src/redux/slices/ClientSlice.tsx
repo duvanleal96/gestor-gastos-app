@@ -17,11 +17,9 @@ export const clientSlice = createSlice({
   initialState,
   reducers: {
     setClient: (state, action: PayloadAction<Partial<ClientInterface>>) => {
-      // Usamos `Partial` para permitir actualizaciones parciales
       return { ...state, ...action.payload };
     },
     resetClient: () => {
-      // Retornamos el initialState para limpiar el estado
       return initialState;
     },
   },

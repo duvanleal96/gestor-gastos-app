@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, Alert } from 'react-native';
-import { FormInput } from '../components/molecules/FormInput';
-import { MainButton } from '../components/atoms/MainButton';
-import { StylePaymentTheme } from '../theme/PaymentTheme';
-import { useDispatch } from 'react-redux';
-import { createTransaction } from '../redux/slices/TransactionSlice';
-import { AnyAction } from '@reduxjs/toolkit';
-import { supabase } from '../lib/supabase';
+import React, {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
+import {FormInput} from '../components/molecules/FormInput';
+import {MainButton} from '../components/atoms/MainButton';
+import {StylePaymentTheme} from '../theme/PaymentTheme';
+import {useDispatch} from 'react-redux';
+import {createTransaction} from '../redux/slices/TransactionSlice';
+import {AnyAction} from '@reduxjs/toolkit';
+import {supabase} from '../lib/supabase';
+import {FormPicker} from '../components/molecules/FormPicker';
+import Toast from 'react-native-toast-message';
 
 // Interface para categorías
 interface Category {
@@ -25,83 +27,94 @@ export const PaymentScreen = () => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState<Category[]>([]);
 
-   useEffect(() => {
+  useEffect(() => {
     const loadCategories = async () => {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('*');
+      const {data, error} = await supabase.from('categories').select('*');
 
       if (!error && data) {
         setCategories(data);
-        if (data.length > 0) {setForm(prev => ({...prev, category_id: data[0].id}));}
+        if (data.length > 0) {
+          setForm(prev => ({...prev, category_id: data[0].id}));
+        }
       }
     };
     loadCategories();
   }, []);
   const handleSubmit = () => {
-    if (!form.amount || !form.category_id ) {
-      Alert.alert('Error', 'Por favor completa categoría y monto');
+    if (!form.amount || !form.category_id) {
+       Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Por favor completa categoría y monto',
+      });
       return;
     }
 
     const amountNumber = parseFloat(form.amount);
     if (isNaN(amountNumber)) {
-      Alert.alert('Error', 'Monto debe ser un número válido');
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Monto debe ser un número válido',
+      });
       return;
     }
-    console.log('here');
-    dispatch(createTransaction({
-      amount: amountNumber,
-      description: form.comment,
-      category_id: form.category_id,
-      date: new Date().toISOString(),
-      user_id: '',
-    }) as unknown as AnyAction);
+    dispatch(
+      createTransaction({
+        amount: amountNumber,
+        description: form.comment,
+        category_id: form.category_id,
+        date: new Date().toISOString(),
+        user_id: '',
+      }) as unknown as AnyAction,
+    );
 
-    Alert.alert('Registro creado!');
-    setForm({ ...form, amount: '', comment: '' });
+    Toast.show({
+      type: 'success',
+      text1: 'Movimiento agregado!',
+      text2: 'Se guardó correctamente 🥳',
+    });
+    setForm({...form, amount: '', comment: ''});
   };
 
   return (
     <View style={StylePaymentTheme.container}>
-    <View style={StylePaymentTheme.titlecontainer}>
-      <Text style={StylePaymentTheme.h1}>Registro</Text>
-      <Text style={StylePaymentTheme.h3}>Ingresos y Egresos</Text>
-    </View>
+      <View style={StylePaymentTheme.titlecontainer}>
+        <Text style={StylePaymentTheme.h1}>Registro</Text>
+        <Text style={StylePaymentTheme.h3}>Ingresos y Egresos</Text>
+      </View>
 
-    {/* Selector de categorías */}
-    <View style={{marginBottom: 16}}>
-      {categories.map(cat => (
-        <MainButton
-          key={cat.id}
-          text={cat.name}
-          onPress={() => setForm({...form, category_id: cat.id})}
-          // eslint-disable-next-line react-native/no-inline-styles
-          style={{
-            backgroundColor: form.category_id === cat.id ? '#7CE2FA' : '#F1F1F1',
-            marginBottom: 8,
-          }}
-        />
-      ))}
-    </View>
+      {/* Selector de categorías */}
+      <FormPicker
+        icon="add"
+        selectedValue={form.category_id}
+        onValueChange={itemValue => setForm({...form, category_id: itemValue})}
+        items={categories.map(cat => ({
+          label: cat.name,
+          value: cat.id,
+        }))}
+        placeholder="Selecciona una categoría"
+      />
 
-    <FormInput
-      icon="credit-card"
-      placeholder="Monto"
-      value={form.amount}
-      onChangeText={(text) => setForm({...form, amount: text})}
-    />
+      <FormInput
+        icon="credit-card"
+        placeholder="Monto"
+        value={form.amount}
+        onChangeText={text => setForm({...form, amount: text})}
+      />
 
-    <FormInput
-      icon="message"
-      placeholder="Comentario"
-      value={form.comment}
-      onChangeText={(text) => setForm({...form, comment: text})}
-    />
+      <FormInput
+        icon="message"
+        placeholder="Comentario"
+        value={form.comment}
+        onChangeText={text => setForm({...form, comment: text})}
+      />
 
-    <MainButton
+      <MainButton
         text="Guardar Movimiento"
-        onPress={handleSubmit} disabled={false}    />
-  </View>
-);
+        onPress={handleSubmit}
+        disabled={false}
+      />
+    </View>
+  );
 };

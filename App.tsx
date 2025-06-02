@@ -5,6 +5,7 @@ import {NavigationDrawer} from './src/navigation/NavigationDrawer';
 import {Provider} from 'react-redux';
 import {ConfigStorage} from './src/redux/storage/ConfigStore';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Toast from 'react-native-toast-message';
 
 export const App = () => {
   return (
@@ -13,6 +14,7 @@ export const App = () => {
     <Provider store={ConfigStorage}>
       <NavigationContainer>
         <NavigationDrawer />
+        <Toast />
       </NavigationContainer>
     </Provider>
     </GestureHandlerRootView>

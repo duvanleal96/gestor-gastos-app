@@ -83,11 +83,11 @@ const stylesMove = StyleSheet.create({
     padding: 10,
     alignSelf: 'flex-end',
     marginRight: 15,
-    marginTop: 10
+    marginTop: 10,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: '100%'
-  }
+    width: '100%',
+  },
 });

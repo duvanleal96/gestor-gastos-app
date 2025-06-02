@@ -6,20 +6,20 @@ export const AuthService = {
           email,
           password,
         });
-        
-        if (authError) throw authError;
-    
+
+        if (authError) {throw authError;}
+
         const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .insert({
             id: user?.id,
             name: name,
             email: email,
-            phone: phone
+            phone: phone,
           })
           .single();
-    
-        if (profileError) throw profileError;
+
+        if (profileError) {throw profileError;}
         console.log(user, 'user creado');
         return { user };
       },
@@ -27,12 +27,12 @@ export const AuthService = {
   async signIn(email: string, password: string) {
     const { user, error, session } = await supabase.auth.signIn({
       email,
-      password
+      password,
     });
 
-    return { 
-      data: { user, session }, 
-      error 
+    return {
+      data: { user, session },
+      error,
     };
   },
 
@@ -42,8 +42,7 @@ export const AuthService = {
   },
 
   async getCurrentUser() {
-    // En v1.35.7 se usa session() para obtener el usuario actual
     const session = supabase.auth.session();
     return session?.user ?? null;
-  }
+  },
 };

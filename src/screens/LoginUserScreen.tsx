@@ -86,7 +86,7 @@ const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navi
           disabled={loading}
         >
           <Text style={stylesLoginUser.registerText}>
-            {loading ? 'Processing...' : 'Register'}
+            {loading ? 'Procesando...' : 'Registrar'}
           </Text>
         </TouchableOpacity>
       </ScrollView>

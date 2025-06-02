@@ -145,10 +145,10 @@ export const StyleAccountTheme = StyleSheet.create({
       margin: 10,
       borderRadius: 10,
       elevation: 3,
-      alignItems: 'center'
+      alignItems: 'center',
     },
   list: {
-      paddingBottom: 30
+      paddingBottom: 30,
   },
   transactionItem: {
       flexDirection: 'row',
@@ -158,29 +158,29 @@ export const StyleAccountTheme = StyleSheet.create({
       marginVertical: 5,
       backgroundColor: '#fff',
       borderRadius: 8,
-      elevation: 1
+      elevation: 1,
   },
     transactionInfo: {
-      flex: 1
+      flex: 1,
     },
     transactionTitle: {
       fontSize: 16,
       fontWeight: '600',
-      color: '#333'
+      color: '#333',
     },
     transactionDate: {
       fontSize: 12,
       color: '#777',
-      marginTop: 3
+      marginTop: 3,
     },
     transactionAmount: {
       fontSize: 16,
-      fontWeight: '700'
+      fontWeight: '700',
     },
     income: {
-      color: '#4CAF50'
+      color: '#4CAF50',
     },
     expense: {
-      color: '#F44336'
-    }
+      color: '#F44336',
+    },
 });
