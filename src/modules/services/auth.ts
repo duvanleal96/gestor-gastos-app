@@ -6,21 +6,17 @@ export const AuthService = {
           email,
           password,
         });
-
         if (authError) {throw authError;}
-
         const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .insert({
             id: user?.id,
-            name: name,
             email: email,
+            name: name,
             phone: phone,
           })
           .single();
-
         if (profileError) {throw profileError;}
-        console.log(user, 'user creado');
         return { user };
       },
 

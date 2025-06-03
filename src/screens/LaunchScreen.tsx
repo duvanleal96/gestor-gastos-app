@@ -5,7 +5,7 @@ import LogoLaunch from '../components/atoms/LogoLaunch';
 
 const LaunchScreen = () => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="launch-container">
       <StatusBar />
       <LogoLaunch />
     </View>

@@ -60,6 +60,7 @@ export const RegistrerScreen = ({navigation}: {navigation: any}) => {
               text1: 'Error',
               text2: 'Ha ocurrido un error al intentar registrarse',
             });
+          console.log(error, 'que pasho');
     } finally {
       setLoading(false);
     }

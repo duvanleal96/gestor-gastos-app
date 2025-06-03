@@ -7,4 +7,7 @@ module.exports = {
     '!**/coverage/**',
   ],
   coverageReporters: ['text', 'html', 'lcov'],
+  transformIgnorePatterns: [
+    'node_modules/(?!(victory-native|react-native|@react-native|react-native-.*)/)',
+  ],
 };
