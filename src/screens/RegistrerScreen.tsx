@@ -1,13 +1,18 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Alert, TouchableOpacity, Text} from 'react-native';
+import {View, StyleSheet, TouchableOpacity, Text} from 'react-native';
 import {FormInput} from '../components/molecules/FormInput';
 import {MainButton} from '../components/atoms/MainButton';
 import {styles} from '../theme/GestorTheme';
 import {AuthService} from '../modules/services/auth';
 import LogoLaunch from '../components/atoms/LogoLaunch';
 import {stylesLoginUser} from '../theme/LoginUserTheme';
+import Toast from 'react-native-toast-message';
+import { fetchUserProfile } from '../redux/slices/UserSlice';
+import { useAppDispatch } from '../hooks/hooks';
 
 export const RegistrerScreen = ({navigation}: {navigation: any}) => {
+
+  const dispatch = useAppDispatch();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -23,7 +28,11 @@ export const RegistrerScreen = ({navigation}: {navigation: any}) => {
       !formData.phone ||
       !formData.password
     ) {
-      Alert.alert('Error', 'Por favor completa todos los campos');
+      Toast.show({
+              type: 'error',
+              text1: 'Error',
+              text2: 'Por favor completa todos los campos!!',
+            });
       return;
     }
 
@@ -35,13 +44,22 @@ export const RegistrerScreen = ({navigation}: {navigation: any}) => {
         formData.name,
         formData.phone,
       );
-      Alert.alert('Éxito', 'Registro completado');
+      Toast.show({
+            type: 'success',
+            text1: 'Exito!',
+            text2: 'Registro completado',
+          });
+      dispatch(fetchUserProfile());
       navigation.reset({
         index: 0,
         routes: [{name: 'home'}],
       });
     } catch (error: any) {
-      Alert.alert('Error', error.message || 'Error en el registro');
+         Toast.show({
+              type: 'error',
+              text1: 'Error',
+              text2: 'Ha ocurrido un error al intentar registrarse',
+            });
     } finally {
       setLoading(false);
     }

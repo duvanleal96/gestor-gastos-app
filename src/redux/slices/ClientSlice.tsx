@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ClientInterface } from '../interface/ClientInterface';
 
-const initialState: ClientInterface = {
+export const initialState: ClientInterface = {
   id: '',
   name: '',
   email: '',

@@ -67,10 +67,6 @@ const movementsSlice = createSlice({
             const transactionType = movement.categories?.type; // 'expense' o 'income'
             const isExpense = transactionType === 'expense';
             const isIncome = transactionType === 'income';
-
-            // Validación por si acaso no viene el type
-            console.log(state, 'incomesss');
-            console.log(transactionType, 'tipo');
             return {
               id: movement.id,
               title: movement.description,
@@ -80,12 +76,11 @@ const movementsSlice = createSlice({
               outcome: isExpense ? 'Gasto' : '',
               category: movement.categories?.name,
               type: transactionType,
-              image: 'https://reactjs.org/logo-og.png', // O usa una imagen por categoría
+              image: 'https://reactjs.org/logo-og.png',
               originalAmount: movement.amount, // Guardamos el monto original por si acaso
             };
           });
 
-        // Calcular totales ss
         state.incomeTotal = state.items
         .filter(item => item.type === 'income')
         .reduce((sum, item) => sum + Math.abs(item.amount), 0);

@@ -45,4 +45,25 @@ export const AuthService = {
     const session = supabase.auth.session();
     return session?.user ?? null;
   },
+
+   async getProfile() {
+    const user = await supabase.auth.user();
+
+  if (!user) {
+    throw new Error('No hay sesión activa o no se pudo obtener el usuario');
+  }
+
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single();
+
+  if (error) {
+    throw new Error('No se pudo obtener el perfil del usuario');
+  }
+
+  return data;
+},
+
 };

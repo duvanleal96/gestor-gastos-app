@@ -6,7 +6,7 @@ import { Transaction, initialState } from '../interface/MovementInterface';
     'transactions/create',
     async (transactionData: Omit<Transaction, 'id'>, { rejectWithValue }) => {
       try {
-        const session = await supabase.auth.session()
+        const session = await supabase.auth.session();
         if (!session?.user?.id) {
           throw new Error('Usuario no autenticado');
         }

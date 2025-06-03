@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -14,6 +13,9 @@ import Logo from '../components/molecules/Logo';
 import { UserPasswordForm } from '../components/organisms/UserPasswordForm';
 import { stylesLoginUser } from '../theme/LoginUserTheme';
 import { supabase } from '../lib/supabase';
+import Toast from 'react-native-toast-message';
+import { useAppDispatch } from '../hooks/hooks';
+import { fetchUserProfile } from '../redux/slices/UserSlice';
 
 // Especifica que esta pantalla espera el parámetro 'email'
 const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = ({
@@ -23,16 +25,15 @@ const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = (
   const { email } = route.params;
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useAppDispatch();
   const handleLogin = async () => {
-
     setLoading(true);
     try {
       const { error } = await supabase.auth.signIn({
         email,
         password,
       });
-
+      dispatch(fetchUserProfile());
       if (error) {throw error;}
 
       navigation.reset({
@@ -40,8 +41,11 @@ const PasswordUserScreen: React.FC<MyStackScreenProps<'PasswordUserScreen'>> = (
         routes: [{ name: 'TabNavigation' }],
       });
     } catch (error) {
-      Alert.alert('Error', 'Credenciales incorrectas');
-      console.error('Error de autenticación:', error);
+      Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: 'Credenciales incorrectas',
+                  });
     } finally {
       setLoading(false);
     }

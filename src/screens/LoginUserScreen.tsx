@@ -15,6 +15,7 @@ import { UserLoginForm } from '../components/organisms/UserLoginForm';
 import { styles } from '../theme/GestorTheme';
 import { stylesLoginUser } from '../theme/LoginUserTheme';
 import { supabase } from '../lib/supabase';
+import Toast from 'react-native-toast-message';
 
 const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -41,7 +42,11 @@ const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navi
 
   const handleContinue = async () => {
     if (!email.includes('@')) {
-      Alert.alert('Error', 'Please enter a valid email address');
+      Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: 'Por favor digite un correo válido',
+                  });
       return;
     }
 
@@ -53,12 +58,21 @@ const LoginUserScreen: React.FC<MyStackScreenProps<'LoginUserScreen'>> = ({ navi
         .eq('email', email)
         .single();
       if (error || !data) {
-        navigation.navigate('RegisterScreen', { email });
+        Toast.show({
+                      type: 'error',
+                      text1: 'Error',
+                      text2: 'Lo siento, no hemos encontrado el correo',
+                    });
+        //navigation.navigate('RegisterScreen', { email });
       } else {
         navigation.navigate('PasswordUserScreen', { email });
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to verify email');
+      Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: 'Error al verificar email',
+                  });
     } finally {
       setLoading(false);
     }
